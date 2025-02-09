@@ -140,14 +140,14 @@ class AttendanceBot:
   def regist_attendance_form(self, day):
     """勤怠フォームに登録する"""
     try:
-      if day in self.holiday_list:
+      if self.holiday and day in self.holiday_list:
         # 届出選択
         report_select = Select(self.driver.find_element(By.NAME, "AttendSecSelect"))
         # 「年次有給休暇（有給）」を選択
         report_select.select_by_value("12")
         time.sleep(1)
       else:
-        if day in self.work_remotely_list:
+        if self.work_remotely and day in self.work_remotely_list:
           # その他業務
           other_work_select = Select(self.driver.find_element(By.NAME, "ContentSelect"))
           # 「在宅　所定時間以上」を選択
